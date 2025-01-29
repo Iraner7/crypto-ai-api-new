@@ -1,10 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-import random  # ✅ Wichtiger Import
+import random
+import os  # 🟢 os importiert
 
 app = FastAPI()
 
+# CORS für externe Anfragen erlauben
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -12,6 +14,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# 🟢 Root-Route (fix 404 Fehler)
+@app.get("/")
+def home():
+    return {"message": "API is running! Go to /docs for Swagger UI"}
 
 # Datenmodell für Anfragen
 class TradeRequest(BaseModel):
@@ -21,7 +28,7 @@ class TradeRequest(BaseModel):
 # Beispiel-Funktion für AI-Trading-Empfehlungen
 def get_trade_recommendation(coin, timeframe):
     predictions = ["Buy", "Sell", "Hold"]
-    return random.choice(predictions)  # Hier könnte dein AI-Modell die Entscheidung treffen
+    return random.choice(predictions)  # Hier könnte dein AI-Modell entscheiden
 
 # API-Route für Vorhersagen
 @app.post("/predict")
@@ -30,10 +37,8 @@ def predict_trade(data: TradeRequest):
     return {"coin": data.coin, "timeframe": data.timeframe, "recommendation": recommendation}
 
 # Falls das Skript direkt ausgeführt wird
-    import os  # ✅ Korrekt eingerückt!
-import uvicorn
-
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))  # Port von Render lesen
+    import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=port)
-    
+
