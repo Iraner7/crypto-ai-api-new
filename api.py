@@ -30,8 +30,8 @@ def predict_trade(data: TradeRequest):
     return {"coin": data.coin, "timeframe": data.timeframe, "recommendation": recommendation}
 
 # Falls das Skript direkt ausgeführt wird
-if __name__ == "__main__":
-import os
+if some_condition:
+    import os  # ✅ Korrekt eingerückt!
 import uvicorn
 
 if __name__ == "__main__":
