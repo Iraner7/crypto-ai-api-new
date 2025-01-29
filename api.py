@@ -30,11 +30,10 @@ def predict_trade(data: TradeRequest):
     return {"coin": data.coin, "timeframe": data.timeframe, "recommendation": recommendation}
 
 # Falls das Skript direkt ausgeführt wird
-if some_condition:
     import os  # ✅ Korrekt eingerückt!
 import uvicorn
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))  # Port von Render lesen
+    port = int(os.environ.get("PORT", 8000))  # Port von Render lesen
     uvicorn.run(app, host="0.0.0.0", port=port)
     
