@@ -1,14 +1,16 @@
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-import random  # Beispiel für eine simple AI-Logik (du kannst hier dein Modell laden)
 
 app = FastAPI()
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Erlaube alle Websites (für Entwicklung)
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Erlaube alle Methoden (GET, POST, etc.)
-    allow_headers=["*"],  # Erlaube alle Header
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 )
 
 
