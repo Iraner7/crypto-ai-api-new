@@ -17,6 +17,10 @@ app.add_middleware(
 
 # 🟢 Root-Route (fix 404 Fehler)
 @app.get("/")
+@app.head("/")
+def head():
+    return None
+
 def home():
     return {"message": "API is running! Go to /docs for Swagger UI"}
 
